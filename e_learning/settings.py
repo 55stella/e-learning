@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'students',
     'embed_video',
     'memcache_status',
+    
 
 ]
 
