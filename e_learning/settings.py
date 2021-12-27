@@ -22,6 +22,7 @@ from dotenv.main import find_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = os.getenv('ENVIRONMENT', 'developement')
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,12 +93,34 @@ WSGI_APPLICATION = 'e_learning.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+if env == 'developement':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES={
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME' : os.getenv('DB_NAME'),
+            'USER' : os.getenv('DB_USER'),
+            'PASSWORD' : os.getenv('DB_PASSWORD'),
+            'HOST' : os.getenv('DB_HOST'),
+            'PORT' : os.getenv('DB_PORT'),
+
+        }
+    }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
