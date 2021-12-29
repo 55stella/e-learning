@@ -150,6 +150,7 @@ class ContentDeleteView(View):
         content.item.delete()
         content.delete()
         return redirect('module_content_list', module.id)
+
 class ModuleContentListView(TemplateResponseMixin, View):
     template_name = 'manage/module/content_list.html'
     def get(self, request, module_id):

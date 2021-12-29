@@ -8,7 +8,7 @@ class OrderField(models.PositiveIntegerField):
         if getattr(model_instance, self.attname) is None:
 # no current value
             try:
-                qs = self.model.objects.all()
+                qs = self.model.objects.all()#here we are getting all objects for the fields model.
                 if self.for_fields:
 # filter by objects with the same field values
 # for the fields in "for_fields"
